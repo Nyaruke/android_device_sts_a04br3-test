@@ -38,6 +38,12 @@ TARGET_USES_32_BIT_BINDER := true
 TARGET_BOOTLOADER_BOARD_NAME := a04br3
 TARGET_NO_BOOTLOADER := true
 
+# selinux
+BOARD_SEPOLICY_DIRS += \
+        $(DEVICE_PATH)/sepolicy
+SELINUX_IGNORE_NEVERALLOWS := true
+BOARD_SECCOMP_POLICY := $(DEVICE_PATH)/seccomp
+
 # Display
 TARGET_SCREEN_DENSITY := 144
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
