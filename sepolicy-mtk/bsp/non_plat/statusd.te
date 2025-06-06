@@ -4,7 +4,7 @@
 type statusd_exec, exec_type, file_type, vendor_file_type;
 type statusd, domain;
 
-# permissive statusd;
+# permissive statusd;s
 
 init_daemon_domain(statusd)
 
