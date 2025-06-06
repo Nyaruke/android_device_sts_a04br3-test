@@ -46,7 +46,7 @@ BOARD_SECCOMP_POLICY := $(DEVICE_PATH)/seccomp
 
 # Display
 TARGET_SCREEN_DENSITY := 144
-TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
+#TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 
 # Kernel
 BOARD_KERNEL_BASE := 0x40078000
