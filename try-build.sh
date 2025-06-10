@@ -1,4 +1,10 @@
 #!/bin/bash
+SCRIPT_ARGS="$1"
+
+if [ "$SCRIPT_ARGS" = "--clean" ]; then
+    FORCE_CLEAN="true"
+fi
+
 
 setup_color() {  # Activate color codes.
     RED="\e[31m"
@@ -36,7 +42,11 @@ main() {
     
     echo -e "Try to build..."
     run_command ". build/envsetup.sh"
-    run_command "make clean"
+    
+    if [ "$FORCE_CLEAN" = "true" ]; then
+        run_command "make clean"
+    fi
+
     run_command "lunch lineage_a04br3-userdebug"
     run_command "mkdir -p /home/builder/builddir/out/target/product/a04br3/obj/KERNEL_OBJ/usr"
     run_command "brunch a04br3"
