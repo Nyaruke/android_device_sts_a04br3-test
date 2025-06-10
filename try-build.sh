@@ -1,0 +1,46 @@
+#!/bin/bash
+
+setup_color() {  # Activate color codes.
+    RED="\e[31m"
+    GREEN="\e[32m"
+    YELLOW="\e[33m"
+    BLUE="\e[34m"
+    RESET="\e[0m"   
+}
+
+run_command() {
+    TARGET_CMD="$1"
+    
+    echo -e "${GREEN}-> $TARGET_CMD ${RESET}"
+    $TARGET_CMD
+
+    TARGET_CMD_EXIT_STAT="$?"
+    if [ "$TARGET_CMD_EXIT_STAT" != "0" ]; then
+        echo -e "${RED}[!!] ERROR: Command failed. bad return status: $TARGET_CMD_EXIT_STAT $RESET"
+        exit 1
+    fi
+}
+
+setup_var() {
+    export LC_ALL="C"
+    export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"
+    export KCFLAGS="-Wno-error=maybe-uninitialized"
+    export USER="root"
+}
+
+main() {
+    echo -e "Enabling color mode"
+    setup_color
+    echo -e "Setting up variable"
+    setup_var
+    
+    echo -e "Try to build..."
+    run_command ". build/envsetup.sh"
+    run_command "lunch lineage_a04br3-userdebug"
+    run_command "brunch a04br3"
+
+    echo -e "${BLUE}[OK] Build successfully ${RESET}" 
+}
+
+
+main
