@@ -21,7 +21,7 @@ run_command() {
     fi
 }
 
-setup_var() {
+prepare_env() {
     export LC_ALL="C"
     export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"
     export KCFLAGS="-Wno-error=maybe-uninitialized"
@@ -32,11 +32,13 @@ main() {
     echo -e "Enabling color mode"
     setup_color
     echo -e "Setting up variable"
-    setup_var
+    prepare_env
     
     echo -e "Try to build..."
     run_command ". build/envsetup.sh"
+    run_command "make clean"
     run_command "lunch lineage_a04br3-userdebug"
+    run_command "mkdir -p /home/builder/builddir/out/target/product/a04br3/obj/KERNEL_OBJ/usr"
     run_command "brunch a04br3"
 
     echo -e "${BLUE}[OK] Build successfully ${RESET}" 
