@@ -58,15 +58,14 @@ BOARD_RAMDISK_OFFSET := 0x03f88000
 BOARD_KERNEL_TAGS_OFFSET := 0x0df88000
 BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
-#BOARD_KERNEL_IMAGE_NAME := Image
-#TARGET_KERNEL_CONFIG := a04br3_defconfig
-#TARGET_KERNEL_SOURCE := kernel/sts/a04br3
 
 # Kernel - prebuilt
+# WARNING: Do not build a kernel by manually placing source code outside of a prebuilt kernel!!
 TARGET_FORCE_PREBUILT_KERNEL := true
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 endif
+
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
