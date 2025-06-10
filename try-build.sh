@@ -5,6 +5,12 @@ if [ "$SCRIPT_ARGS" = "--clean" ]; then
     FORCE_CLEAN="true"
 fi
 
+if [ "$SCRIPT_ARGS" = "--recovery" ]; then
+    TARGET_FILE="recovery"
+else
+    TARGET_FILE="OTA"
+fi
+
 
 setup_color() {  # Activate color codes.
     RED="\e[31m"
@@ -49,8 +55,13 @@ main() {
 
     run_command "lunch lineage_a04br3-userdebug"
     run_command "mkdir -p /home/builder/builddir/out/target/product/a04br3/obj/KERNEL_OBJ/usr"
-    run_command "brunch a04br3"
-
+    
+    if [ "$TARGET_FILE" = "OTA" ]; then
+        run_command "brunch a04br3"
+    elif [ "$TARGET_FILE" = "recovery" ]; then
+        run_command "make recoveryimage"
+    fi
+    
     echo -e "${BLUE}[OK] Build successfully ${RESET}" 
 }
 
